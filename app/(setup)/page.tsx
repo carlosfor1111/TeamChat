@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
 
