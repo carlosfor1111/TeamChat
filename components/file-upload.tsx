@@ -1,5 +1,4 @@
 "use client";
-
 import { UploadDropzone } from "@/lib/uploadthing";
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
