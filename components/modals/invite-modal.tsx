@@ -73,11 +73,13 @@ export const InviteModal = () => {
               value={inviteUrl}
             />
 
-            <Button onClick={onCopy} size="icon">
+            <Button disabled={isLoading} onClick={onCopy} size="icon">
               {copied ? <Check /> : <Copy className="w-4 h-4" />}
             </Button>
           </div>
           <Button
+            onClick={onNew}
+            disabled={isLoading}
             variant="link"
             size="sm"
             className="text-xs text-zinc-500 mt-4"
