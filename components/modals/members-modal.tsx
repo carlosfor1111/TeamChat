@@ -75,6 +75,21 @@ export const MembersModal = () => {
       setLoadingId("");
     }
   };
+  const onKick = async (memberId: string) => {
+    try {
+      setLoadingId(memberId);
+      const url = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server?.id,
+        },
+      });
+      const response = await axios.delete(url);
+    } catch (error) {
+    } finally {
+      setLoadingId("");
+    }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -122,7 +137,11 @@ export const MembersModal = () => {
                                     <Check className="h-4 w-4 ml-auto" />
                                   )}
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    onRoleChange(member.id, "MODERATOR");
+                                  }}
+                                >
                                   <ShieldCheck className="h-4 w-4 mr-2" />
                                   Moderator
                                   {member.role === "MODERATOR" && (
@@ -133,7 +152,7 @@ export const MembersModal = () => {
                             </DropdownMenuPortal>
                           </DropdownMenuSub>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => onKick(member.id)}>
                             <Gavel className="h-4 w-4 mr-2" />
                             Kick
                           </DropdownMenuItem>
