@@ -49,7 +49,7 @@ export const DeleteServerModal = () => {
             Are you sure you want to do this?
             <br />
             <span className="font-semibold text-indigo-500">
-              {server?.name}
+              {`${server?.name} `}
             </span>
             will be permanently deleted.
           </DialogDescription>
