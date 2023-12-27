@@ -72,9 +72,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     [MemberRole.MODERATOR]: (
       <ShieldCheck className="h-4 w-4 mr-2 text-indigo-500" />
     ),
-    [MemberRole.ADMIN]: (
-      <ShieldAlert className="h-4 w-4 mr-2 text-indigo-500" />
-    ),
+    [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-rose-500" />,
   };
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
