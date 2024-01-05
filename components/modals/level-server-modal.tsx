@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Dialog,
@@ -14,7 +15,6 @@ import {
 import { useModal } from "@/hooks/use-modal-store";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 
 export const LeaveServerModal = () => {
   const { isOpen, onClose, type, data } = useModal();
@@ -36,6 +36,7 @@ export const LeaveServerModal = () => {
       router.push("/");
     } catch (error) {
     } finally {
+      setIsLoading(false);
     }
   };
   return (

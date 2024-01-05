@@ -61,7 +61,7 @@ export const MembersModal = () => {
           serverId: server?.id,
         },
       });
-      const response = await axios.delete(url);
+      await axios.delete(url);
     } catch (error) {
     } finally {
       setLoadingId("");
