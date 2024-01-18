@@ -19,6 +19,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       // @ts-ignore
       addTrailingSlash: false,
     });
+    //io
     res.socket.server.io = io;
   }
 
