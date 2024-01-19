@@ -3,8 +3,9 @@ import { redirectToSignIn } from "@clerk/nextjs";
 import { ChannelType } from "@prisma/client";
 import { ChatHeader } from "@/components/chat/chat-header";
 import { ChatInput } from "@/components/chat/chat-input";
-import { currentProfile } from "@/lib/current-profile";
 import { ChatMessages } from "@/components/chat/chat-messages";
+import { MediaRoom } from "@/components/media-room";
+import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 
 interface ChannelPageProps {
