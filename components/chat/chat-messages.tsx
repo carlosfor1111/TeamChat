@@ -42,7 +42,12 @@ export const ChatMessages = ({
   const queryKey = `chat:${chatId}`;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
+    useChatQuery({
+      queryKey,
+      apiUrl,
+      paramKey,
+      paramValue,
+    });
 
   if (status === "pending") {
     return (
@@ -64,6 +69,7 @@ export const ChatMessages = ({
       </div>
     );
   }
+
   return (
     <div className="flex-1 flex flex-col py-4 overflow-y-auto">
       <div className="flex-1">
@@ -72,19 +78,21 @@ export const ChatMessages = ({
           {data?.pages?.map((group, i) => (
             <Fragment key={i}>
               {group.items.map((message: MessageWithMemberWithProfile) => {
-                <ChatItem
-                  key={message.id}
-                  id={message.id}
-                  currentMember={member}
-                  member={message.member}
-                  content={message.content}
-                  fileUrl={message.fileUrl}
-                  deleted={message.deleted}
-                  timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                  isUpdated={message.updatedAt !== message.createdAt}
-                  socketUrl={socketUrl}
-                  socketQuery={socketQuery}
-                />;
+                return (
+                  <ChatItem
+                    key={message.id}
+                    id={message.id}
+                    currentMember={member}
+                    member={message.member}
+                    content={message.content}
+                    fileUrl={message.fileUrl}
+                    deleted={message.deleted}
+                    timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                    isUpdated={message.updatedAt !== message.createdAt}
+                    socketUrl={socketUrl}
+                    socketQuery={socketQuery}
+                  />
+                );
               })}
             </Fragment>
           ))}

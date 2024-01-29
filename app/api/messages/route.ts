@@ -1,20 +1,21 @@
-import { currentProfile } from "@/lib/current-profile";
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
 import { Message } from "@prisma/client";
+
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 const MESSAGES_BATCH = 10;
 
 export async function GET(req: Request) {
   try {
-    const profile = currentProfile();
-
+    const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
+
     const cursor = searchParams.get("cursor");
     const channelId = searchParams.get("channelId");
 
     if (!profile) {
-      return new NextResponse("Unauthenticated", { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     if (!channelId) {
@@ -30,7 +31,9 @@ export async function GET(req: Request) {
         cursor: {
           id: cursor,
         },
-        where: { channelId },
+        where: {
+          channelId,
+        },
         include: {
           member: {
             include: {
@@ -45,15 +48,21 @@ export async function GET(req: Request) {
     } else {
       messages = await db.message.findMany({
         take: MESSAGES_BATCH,
-        where: { channelId },
-        include: { member: { include: { profile: true } } },
+        where: {
+          channelId,
+        },
+        include: {
+          member: {
+            include: {
+              profile: true,
+            },
+          },
+        },
         orderBy: {
           createdAt: "desc",
         },
       });
     }
-
-    console.log(messages);
 
     let nextCursor = null;
 
@@ -61,9 +70,12 @@ export async function GET(req: Request) {
       nextCursor = messages[MESSAGES_BATCH - 1].id;
     }
 
-    return NextResponse.json({ items: messages, nextCursor });
+    return NextResponse.json({
+      items: messages,
+      nextCursor,
+    });
   } catch (error) {
-    console.log("[MESSAGE_GET]", error);
+    console.log("[MESSAGES_GET]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
