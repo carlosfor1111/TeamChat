@@ -6,14 +6,7 @@ import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
-import {
-  Edit,
-  FileIcon,
-  ShieldAlert,
-  ShieldCheck,
-  Trash,
-  User,
-} from "lucide-react";
+import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
@@ -84,13 +77,13 @@ export const ChatItem = ({
 
     window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keyDown", handleKeyDown);
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      content,
+      content: content,
     },
   });
 
@@ -113,7 +106,9 @@ export const ChatItem = ({
   };
 
   useEffect(() => {
-    form.reset({ content });
+    form.reset({
+      content: content,
+    });
   }, [content]);
 
   const fileType = fileUrl?.split(".").pop();
