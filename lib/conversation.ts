@@ -9,10 +9,10 @@ export const getOrCreateConversation = async (
     (await findConversation(memberTwoId, memberOneId));
 
   if (!conversation) {
-    conversation = await createConversation(memberOneId, memberTwoId);
-
-    return conversation;
+    conversation = await createNewConversation(memberOneId, memberTwoId);
   }
+
+  return conversation;
 };
 
 const findConversation = async (memberOneId: string, memberTwoId: string) => {
@@ -39,7 +39,10 @@ const findConversation = async (memberOneId: string, memberTwoId: string) => {
   }
 };
 
-const createConversation = async (memberOneId: string, memberTwoId: string) => {
+const createNewConversation = async (
+  memberOneId: string,
+  memberTwoId: string
+) => {
   try {
     return await db.conversation.create({
       data: {
