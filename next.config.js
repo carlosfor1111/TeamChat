@@ -9,10 +9,6 @@ const nextConfig = {
   //   return config;
   // },
   images: {
-<<<<<<< HEAD
-    // domains: ["uploadthing.com", "utfs.io"],
-=======
->>>>>>> develop
     remotePatterns: [
       {
         protocol: "https",
