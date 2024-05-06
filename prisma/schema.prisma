@@ -98,23 +98,7 @@ model Channel {
   @@index([serverId])
 }
 
-// 範例
-// {
-//   "Message": {
-//     "id": "abc123",
-//     "content": "This is a sample message",
-//     "fileUrl": "https://example.com/sample.jpg",
-//     "memberId": "member123",
-//     "channelId": "channel456",
-//     "deleted": false,
-//     "createdAt": "2024-01-08T12:34:56.789Z",
-//     "updatedAt": "2024-01-08T12:34:56.789Z"
-//   },
-//   "Channel": {
-//     "id": "channel456"
-//     // 其他 Channel 模型的屬性...
-//   }
-// }
+
 model Message {
   id String @id @default(uuid())
   content String @db.Text
